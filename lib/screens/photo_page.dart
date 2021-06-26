@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import 'dart:io';
 import 'dart:async';
-import 'package:google_ml_kit/google_ml_kit.dart';
+import '../components/compute_button.dart';
+import 'text_page.dart';
 
-class homePage extends StatefulWidget {
-  const homePage({Key? key}) : super(key: key);
-
+class PhotoPage extends StatefulWidget {
   @override
-  _homePageState createState() => _homePageState();
+  _PhotoPageState createState() => _PhotoPageState();
 }
 
-class _homePageState extends State<homePage> {
+class _PhotoPageState extends State<PhotoPage> {
   String result = '';
   File? _image;
   InputImage? inputImage;
   final picker = ImagePicker();
 
+  //function picks image from gallery and displays on photo page
   Future pickImageFromGallery() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
@@ -24,13 +25,13 @@ class _homePageState extends State<homePage> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
         inputImage = InputImage.fromFilePath(pickedFile.path);
-        imageToText(inputImage);
       } else {
         print('No image selected.');
       }
     });
   }
 
+  //function triggers camera to take picture and then displays photo page
   Future captureImageFromCamera() async {
     final pickedFile = await picker.getImage(source: ImageSource.camera);
 
@@ -38,7 +39,6 @@ class _homePageState extends State<homePage> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
         inputImage = InputImage.fromFilePath(pickedFile.path);
-        imageToText(inputImage);
       } else {
         print('No image selected.');
       }
@@ -46,16 +46,24 @@ class _homePageState extends State<homePage> {
   }
 
   Future imageToText(inputImage) async {
+    result = '';
     final textDetector = GoogleMlKit.vision.textDetector();
     final RecognisedText recognisedText =
         await textDetector.processImage(inputImage);
 
     setState(() {
       String text = recognisedText.text;
+      print("whole text: ");
+      print(text);
       for (TextBlock block in recognisedText.blocks) {
+        //blocks (paragraph sections)
         final String text = block.text;
         for (TextLine line in block.lines) {
+          //lines
+          // print("Text line: ");
+          // print(text);
           for (TextElement element in line.elements) {
+            //words
             result += element.text + " ";
           }
         }
@@ -92,29 +100,31 @@ class _homePageState extends State<homePage> {
               ),
             ),
           ),
-          Stack(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Align(
-                alignment: Alignment.centerLeft,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    print('Pick Image');
-                    pickImageFromGallery();
-                  },
-                  child: Icon(Icons.attach_file),
-                ),
+              FloatingActionButton(
+                onPressed: () {
+                  print('Pick Image');
+                  pickImageFromGallery();
+                },
+                child: Icon(Icons.attach_file),
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    print('Take a photo');
-                    captureImageFromCamera();
-                  },
-                  child: Icon(Icons.add_a_photo),
-                ),
+              FloatingActionButton(
+                onPressed: () {
+                  print('Take a photo');
+                  captureImageFromCamera();
+                },
+                child: Icon(Icons.add_a_photo),
               ),
             ],
+          ),
+          ComputeButton(
+            onTap: () {
+              TextParseBrain parse = TextParseBrain();
+              Navigator.pushNamed(context, '/textified', arguments: {});
+            },
+            buttonTitle: 'TEXTIFY!',
           ),
         ],
       ),
