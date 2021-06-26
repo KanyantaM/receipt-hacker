@@ -4,7 +4,7 @@ import 'package:google_ml_kit/google_ml_kit.dart';
 import 'dart:io';
 import 'dart:async';
 import '../components/compute_button.dart';
-import 'text_page.dart';
+import '../text_brain.dart';
 
 class PhotoPage extends StatefulWidget {
   @override
@@ -12,7 +12,6 @@ class PhotoPage extends StatefulWidget {
 }
 
 class _PhotoPageState extends State<PhotoPage> {
-  String result = '';
   File? _image;
   InputImage? inputImage;
   final picker = ImagePicker();
@@ -45,33 +44,6 @@ class _PhotoPageState extends State<PhotoPage> {
     });
   }
 
-  Future imageToText(inputImage) async {
-    result = '';
-    final textDetector = GoogleMlKit.vision.textDetector();
-    final RecognisedText recognisedText =
-        await textDetector.processImage(inputImage);
-
-    setState(() {
-      String text = recognisedText.text;
-      print("whole text: ");
-      print(text);
-      for (TextBlock block in recognisedText.blocks) {
-        //blocks (paragraph sections)
-        final String text = block.text;
-        for (TextLine line in block.lines) {
-          //lines
-          // print("Text line: ");
-          // print(text);
-          for (TextElement element in line.elements) {
-            //words
-            result += element.text + " ";
-          }
-        }
-      }
-      result += "\n\n";
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,29 +51,23 @@ class _PhotoPageState extends State<PhotoPage> {
         title: Text('Receipt Hacker'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            height: 200,
-            child: SingleChildScrollView(
-              child: _image == null
-                  ? Text('No image selected.')
-                  : Image.file(_image!),
-            ),
-          ),
-          Container(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  result,
-                  style: TextStyle(fontSize: 16.0),
-                  textAlign: TextAlign.start,
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              height: 550,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: _image == null
+                      ? Text('Upload receipt')
+                      : Image.file(_image!),
                 ),
               ),
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               FloatingActionButton(
                 onPressed: () {
@@ -121,7 +87,9 @@ class _PhotoPageState extends State<PhotoPage> {
           ),
           ComputeButton(
             onTap: () {
-              TextParseBrain parse = TextParseBrain();
+              TextBrain parse = TextBrain(
+                inputImage: inputImage,
+              );
               Navigator.pushNamed(context, '/textified', arguments: {});
             },
             buttonTitle: 'TEXTIFY!',

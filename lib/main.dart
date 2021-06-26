@@ -13,11 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.white70,
+        primaryColor: Colors.blueGrey[800],
         accentColor: Colors.lightGreenAccent,
-        scaffoldBackgroundColor: Colors.blueGrey[800],
+        scaffoldBackgroundColor: Colors.white70,
       ),
       title: 'Receipt Hacker',
+      color: Colors.white,
       initialRoute: '/',
       routes: {
         '/': (context) => SplashScreen(),
