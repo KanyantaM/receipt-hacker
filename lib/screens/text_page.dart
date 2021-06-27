@@ -6,36 +6,50 @@ class TextPage extends StatelessWidget {
     Map textArgs = ModalRoute.of(context)!.settings.arguments as Map;
     print('textArgs');
     print(textArgs);
-    //just copying over function to see how it worked prior to moving it to text brain
-    // Future imageToText(inputImage) async {
-    //   result = '';
-    //   final textDetector = GoogleMlKit.vision.textDetector();
-    //   final RecognisedText recognisedText =
-    //   await textDetector.processImage(inputImage);
-    //
-    //   setState(() {
-    //     String text = recognisedText.text;
-    //     print("whole text: ");
-    //     print(text);
-    //     for (TextBlock block in recognisedText.blocks) {
-    //       //blocks (paragraph sections)
-    //       final String text = block.text;
-    //       for (TextLine line in block.lines) {
-    //         //lines
-    //         // print("Text line: ");
-    //         // print(text);
-    //         for (TextElement element in line.elements) {
-    //           //words
-    //           result += element.text + " ";
-    //         }
-    //       }
-    //     }
-    //     result += "\n\n";
-    //   });
-    //
-    return Container(
-      child: Text(
-        'sample',
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Receipt Hacker'),
+      ),
+      body: Row(
+        children: [
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                Text('Items'),
+                for (var word in textArgs['words']) Text(word),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text('Subtotal'),
+                Text('Tax'),
+                Text('Total'),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Text(
+                  'Prices',
+                ),
+                for (var price in textArgs['prices']) Text(price),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  textArgs['sub'],
+                ),
+                Text(
+                  textArgs['tax'],
+                ),
+                Text(
+                  textArgs['total'],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

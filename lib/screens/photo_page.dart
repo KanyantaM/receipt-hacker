@@ -126,7 +126,13 @@ class _PhotoPageState extends State<PhotoPage> {
                 // inputImage: inputImage,
               );
               Navigator.pushNamed(context, '/text', arguments: {
-                'total': parse.parseText(lineList),
+                'parse': parse.parseText(lineList),
+                'total': parse.findTotal(),
+                'tax': parse.findTax(),
+                'sub': parse.findSub(),
+                'words': parse.showWords(),
+                'prices': parse.showPrices(),
+                'items': parse.getItems(),
               });
             },
             buttonTitle: 'TEXTIFY!',
