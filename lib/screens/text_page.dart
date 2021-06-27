@@ -17,7 +17,7 @@ class TextPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text('Items'),
-                for (var word in textArgs['words']) Text(word),
+                for (var item in textArgs['items']) Text(item),
                 SizedBox(
                   height: 10.0,
                 ),

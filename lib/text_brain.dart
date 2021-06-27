@@ -36,16 +36,6 @@ class TextBrain {
         wordList.add(textLines[i]);
       }
     }
-    print('lines: ');
-    print(textLines);
-    print('words list: ');
-    print(wordList);
-    print('length: ');
-    print(wordList.length);
-    print('cost list: ');
-    print(costList);
-    print('length: ');
-    print(costList.length);
   }
 
   List showWords() {
@@ -81,12 +71,11 @@ class TextBrain {
       if (isTax.hasMatch(wordList[i])) {
         //if word has tax in it, remove it
         wordList.removeAt(i);
-        tax = num.parse(costList[i]);
-        costList.removeAt(i);
+        //kind of flawed/not going to work for ever receipt, but assuming tax is the last item now
+        tax = num.parse(costList[costList.length - 1]);
+        costList.removeLast();
       }
     }
-    print('tax');
-    print(tax);
     return tax.toStringAsFixed(2).toString();
   }
 
