@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class TextPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Map textArgs = ModalRoute.of(context)!.settings.arguments as Map;
+    print('textArgs');
+    print(textArgs);
     //just copying over function to see how it worked prior to moving it to text brain
     // Future imageToText(inputImage) async {
     //   result = '';
@@ -32,7 +35,7 @@ class TextPage extends StatelessWidget {
     //
     return Container(
       child: Text(
-        'Reached text page',
+        'sample',
       ),
     );
   }

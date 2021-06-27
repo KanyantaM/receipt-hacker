@@ -12,9 +12,15 @@ class PhotoPage extends StatefulWidget {
 }
 
 class _PhotoPageState extends State<PhotoPage> {
+  // late String result;
   File? _image;
   InputImage? inputImage;
   final picker = ImagePicker();
+  late String recognizedText;
+  late String textBlock;
+  late String textLine;
+  late String textWord;
+  List<String> lineList = [];
 
   //function picks image from gallery and displays on photo page
   Future pickImageFromGallery() async {
@@ -24,6 +30,7 @@ class _PhotoPageState extends State<PhotoPage> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
         inputImage = InputImage.fromFilePath(pickedFile.path);
+        imageToText(inputImage);
       } else {
         print('No image selected.');
       }
@@ -38,9 +45,36 @@ class _PhotoPageState extends State<PhotoPage> {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
         inputImage = InputImage.fromFilePath(pickedFile.path);
+        imageToText(inputImage);
       } else {
         print('No image selected.');
       }
+    });
+  }
+
+  Future imageToText(inputImage) async {
+    // result = '';
+    lineList = [];
+
+    final textDetector = GoogleMlKit.vision.textDetector();
+    final RecognisedText recognisedText =
+        await textDetector.processImage(inputImage);
+
+    setState(() {
+      String text = recognisedText.text;
+      for (TextBlock block in recognisedText.blocks) {
+        //blocks (blocks of text/sections)
+        final String text = block.text;
+        for (TextLine line in block.lines) {
+          //lines - makes the most sense as the strings to parse through
+          lineList.add(line.text);
+          // for (TextElement element in line.elements) {
+          //words
+          // result += element.text + " ";
+          // }
+        }
+      }
+      // result += "\n\n";
     });
   }
 
@@ -88,9 +122,12 @@ class _PhotoPageState extends State<PhotoPage> {
           ComputeButton(
             onTap: () {
               TextBrain parse = TextBrain(
-                inputImage: inputImage,
+                textLines: lineList,
+                // inputImage: inputImage,
               );
-              Navigator.pushNamed(context, '/textified', arguments: {});
+              Navigator.pushNamed(context, '/text', arguments: {
+                'total': parse.parseText(lineList),
+              });
             },
             buttonTitle: 'TEXTIFY!',
           ),

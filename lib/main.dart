@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashScreen(),
         '/photo': (context) => PhotoPage(),
-        '/textified': (context) => TextPage(),
+        '/text': (context) => TextPage(),
       },
     );
   }
