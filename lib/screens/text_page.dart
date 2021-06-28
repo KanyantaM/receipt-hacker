@@ -227,6 +227,7 @@ class _TextPageState extends State<TextPage> {
           ComputeButton(
             onTap: () {
               CalculatorBrain calc = CalculatorBrain(
+                //really cheesy way of finding subtotal and tax values here; need to refine the regex better
                 sub: num.parse(
                     textArgs['prices'][textArgs['prices'].length - 3]),
                 tax: num.parse(
@@ -236,7 +237,12 @@ class _TextPageState extends State<TextPage> {
                 splitType: splitSelection,
               );
               print('I was pressed');
-              Navigator.pushNamed(context, '/results', arguments: {});
+              Navigator.pushNamed(context, '/results', arguments: {
+                'tipTotal': calc.calculateTip(),
+                'taxTipPP': calc.taxTipPer(),
+                'itemTotalPP': calc.itemTotalPer(),
+                'totalPP': calc.totalPer(),
+              });
             },
             buttonTitle: 'HACK MY RECEIPT!',
           ),
