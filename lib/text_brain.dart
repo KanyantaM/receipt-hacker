@@ -1,6 +1,3 @@
-import 'dart:math';
-import 'dart:ui';
-
 class TextBrain {
   //needs to take in list of lines of text
 
@@ -18,7 +15,6 @@ class TextBrain {
   //need to use regular expressions to differentiate between money, tax, tip, pretax or total, item names, item quantities
   RegExp isMoney = RegExp(r'([0-9]{1,3}\.[0-9][0-9])');
   RegExp isTax = RegExp(r'([Tt][Aa][Xx])');
-  // RegExp isTip = RegExp(r'([Tt][Ii][Pp])');
   RegExp totalOrSub = RegExp(r'([Tt][Oo][Tt][Aa][Ll])');
   RegExp hasQty = RegExp(r'([0-9]{1-3}\s|[0-9]{1,3})');
 

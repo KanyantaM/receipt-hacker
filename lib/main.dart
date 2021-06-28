@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'screens/splash_screen.dart';
 import 'screens/photo_page.dart';
 import 'screens/text_page.dart';
+import 'screens/results_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/photo': (context) => PhotoPage(),
         '/text': (context) => TextPage(),
+        '/results': (context) => ResultsPage(),
       },
     );
   }

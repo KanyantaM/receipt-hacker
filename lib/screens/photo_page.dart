@@ -123,7 +123,6 @@ class _PhotoPageState extends State<PhotoPage> {
             onTap: () {
               TextBrain parse = TextBrain(
                 textLines: lineList,
-                // inputImage: inputImage,
               );
               Navigator.pushNamed(context, '/text', arguments: {
                 'parse': parse.parseText(lineList),
