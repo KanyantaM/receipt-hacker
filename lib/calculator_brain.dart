@@ -19,9 +19,13 @@ class CalculatorBrain {
   final String splitType;
 
   num tipTotal = 0;
-  num calculateTip() {
+  String calculateTip() {
     tipTotal = (sub * tipPercent) / 100;
-    return tipTotal;
+    return "\$" + tipTotal.toStringAsFixed(2);
+  }
+
+  String returnTax() {
+    return "\$" + tax.toStringAsFixed(2);
   }
 
   num taxTipPP = 0;
@@ -30,18 +34,23 @@ class CalculatorBrain {
     //if based on %, will need to find the person's % of subtotal value and then taxTipPer for that specific person would be (tipTotal + tax) * percent of sub
     //if even, this current equation is fine
     taxTipPP = (tipTotal + tax) / people;
-    return taxTipPP.toStringAsFixed(2);
+    return "\$" + taxTipPP.toStringAsFixed(2);
   }
 
   num itemTotalPP = 0;
   String itemTotalPer() {
     //this is only for an even split; will need to adjust once the model associations are worked out
     itemTotalPP = sub / people;
-    return itemTotalPP.toStringAsFixed(2);
+    return "\$" + itemTotalPP.toStringAsFixed(2);
   }
 
   String totalPer() {
     num totalPP = taxTipPP + itemTotalPP;
-    return totalPP.toStringAsFixed(2);
+    return "\$" + totalPP.toStringAsFixed(2);
+  }
+
+  String totalBill() {
+    num totalBill = sub + tax + tipTotal;
+    return "\$" + totalBill.toStringAsFixed(2);
   }
 }

@@ -34,61 +34,112 @@ class _TextPageState extends State<TextPage> {
       body: Column(
         children: [
           Expanded(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      Text('Items'),
-                      for (var item in textArgs['items']) Text(item),
-                      SizedBox(
-                        height: 10.0,
+            flex: 3,
+            child: ReusableCard(
+              color: Colors.white70,
+              cardChild: Row(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(40.0, 20.0, 0, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'ITEMS',
+                            style: kReceiptHeaderStyle,
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          for (var item in textArgs['items'])
+                            Text(
+                              item,
+                              style: kReceiptTextStyle,
+                            ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            'Subtotal',
+                            style: kReceiptTextStyle,
+                          ),
+                          Text(
+                            'Tax',
+                            style: kReceiptTextStyle,
+                          ),
+                          Text(
+                            'Total',
+                            style: kReceiptTextStyle,
+                          ),
+                        ],
                       ),
-                      Text('Subtotal'),
-                      Text('Tax'),
-                      Text('Total'),
-                    ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                        'Prices',
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 20.0, 40.0, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            'PRICES',
+                            style: kReceiptHeaderStyle,
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          for (var price in textArgs['prices'])
+                            Text(
+                              "\$" + price,
+                              style: kReceiptTextStyle,
+                            ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            "\$" + textArgs['sub'],
+                            style: kReceiptTextStyle,
+                          ),
+                          Text(
+                            "\$" + textArgs['tax'],
+                            style: kReceiptTextStyle,
+                          ),
+                          Text(
+                            "\$" + textArgs['total'],
+                            style: kReceiptTextStyle,
+                          ),
+                        ],
                       ),
-                      for (var price in textArgs['prices']) Text(price),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        textArgs['sub'],
-                      ),
-                      Text(
-                        textArgs['tax'],
-                      ),
-                      Text(
-                        textArgs['total'],
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Expanded(
+            flex: 2,
             child: Row(
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: Colors.green,
+                    color: Color(0xFF953D97),
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Tip %',
+                          'TIP',
+                          style: kCardHeaderStyle,
+                        ),
+                        SizedBox(
+                          height: 20.0,
                         ),
                         Text(
-                          tip.toString(),
+                          tip.toString() + '\%',
+                          style: kCardValueStyle,
+                        ),
+                        SizedBox(
+                          height: 20.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -102,9 +153,9 @@ class _TextPageState extends State<TextPage> {
                                   }
                                 });
                               },
-                              color: Colors.red,
+                              color: Colors.white70,
                             ),
-                            SizedBox(width: 10.0),
+                            SizedBox(width: 40.0),
                             RoundButton(
                               icon: FontAwesomeIcons.plus,
                               onPressed: () {
@@ -112,7 +163,7 @@ class _TextPageState extends State<TextPage> {
                                   tip++;
                                 });
                               },
-                              color: Colors.blue,
+                              color: Colors.white70,
                             ),
                           ],
                         ),
@@ -122,15 +173,23 @@ class _TextPageState extends State<TextPage> {
                 ),
                 Expanded(
                   child: ReusableCard(
-                    color: Colors.yellow,
+                    color: Color(0xFF953D97),
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'People',
+                          'PEOPLE',
+                          style: kCardHeaderStyle,
+                        ),
+                        SizedBox(
+                          height: 20.0,
                         ),
                         Text(
                           people.toString(),
+                          style: kCardValueStyle,
+                        ),
+                        SizedBox(
+                          height: 20.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -144,9 +203,9 @@ class _TextPageState extends State<TextPage> {
                                   }
                                 });
                               },
-                              color: Colors.red,
+                              color: Colors.white70,
                             ),
-                            SizedBox(width: 10.0),
+                            SizedBox(width: 40.0),
                             RoundButton(
                               icon: FontAwesomeIcons.plus,
                               onPressed: () {
@@ -154,7 +213,7 @@ class _TextPageState extends State<TextPage> {
                                   people++;
                                 });
                               },
-                              color: Colors.blue,
+                              color: Colors.white70,
                             ),
                           ],
                         ),
@@ -170,7 +229,7 @@ class _TextPageState extends State<TextPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    color: Colors.blue,
+                    color: Color(0xFF008A84),
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,7 +237,11 @@ class _TextPageState extends State<TextPage> {
                         Column(
                           children: [
                             Text(
-                              'Split Tax/Tip',
+                              'SPLIT TAX/TIP',
+                              style: kCardHeaderStyle,
+                            ),
+                            SizedBox(
+                              height: 10.0,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -236,9 +299,11 @@ class _TextPageState extends State<TextPage> {
               print('I was pressed');
               Navigator.pushNamed(context, '/results', arguments: {
                 'tipTotal': calc.calculateTip(),
+                'tax': calc.returnTax(),
                 'taxTipPP': calc.taxTipPer(),
                 'itemTotalPP': calc.itemTotalPer(),
                 'totalPP': calc.totalPer(),
+                'bill': calc.totalBill(),
               });
             },
             buttonTitle: 'HACK MY RECEIPT!',

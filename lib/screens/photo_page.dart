@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -87,37 +88,53 @@ class _PhotoPageState extends State<PhotoPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Container(
-              height: 550,
-              child: Center(
-                child: SingleChildScrollView(
-                  child: _image == null
-                      ? Text('Upload receipt')
-                      : Image.file(_image!),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: _image == null
+                        ? Text('Upload receipt')
+                        : Image.file(_image!),
+                  ),
                 ),
               ),
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              FloatingActionButton(
-                onPressed: () {
-                  print('Pick Image');
-                  pickImageFromGallery();
-                },
-                child: Icon(Icons.attach_file),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(40.0, 0, 0, 0),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    print('Pick Image');
+                    pickImageFromGallery();
+                  },
+                  child: Icon(
+                    Icons.attach_file,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-              FloatingActionButton(
-                onPressed: () {
-                  print('Take a photo');
-                  captureImageFromCamera();
-                },
-                child: Icon(Icons.add_a_photo),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 40.0, 0),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    print('Take a photo');
+                    captureImageFromCamera();
+                  },
+                  child: Icon(
+                    Icons.add_a_photo,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
+          ),
+          SizedBox(
+            height: 30.0,
           ),
           ComputeButton(
             onTap: () {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants.dart';
 
 class ComputeButton extends StatelessWidget {
   ComputeButton({required this.onTap, required this.buttonTitle});
@@ -14,11 +15,13 @@ class ComputeButton extends StatelessWidget {
         child: Center(
           child: Text(
             buttonTitle,
+            style: kLargeButtonTextStyle,
           ),
         ),
+        color: Colors.green,
         margin: EdgeInsets.only(top: 10.0),
         width: double.infinity,
-        height: 50.0,
+        height: 70.0,
       ),
     );
   }

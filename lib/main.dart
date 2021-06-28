@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Colors.blueGrey[800],
-        accentColor: Colors.lightGreenAccent,
-        scaffoldBackgroundColor: Colors.white70,
+        primaryColor: Colors.teal,
+        accentColor: Colors.lightGreen,
+        scaffoldBackgroundColor: Colors.white,
       ),
       title: 'Receipt Hacker',
       color: Colors.white,
