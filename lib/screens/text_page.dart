@@ -227,11 +227,8 @@ class _TextPageState extends State<TextPage> {
           ComputeButton(
             onTap: () {
               CalculatorBrain calc = CalculatorBrain(
-                //really cheesy way of finding subtotal and tax values here; need to refine the regex better
-                sub: num.parse(
-                    textArgs['prices'][textArgs['prices'].length - 3]),
-                tax: num.parse(
-                    textArgs['prices'][textArgs['prices'].length - 2]),
+                sub: num.parse(textArgs['sub']),
+                tax: num.parse(textArgs['tax']),
                 tipPercent: tip,
                 people: people,
                 splitType: splitSelection,

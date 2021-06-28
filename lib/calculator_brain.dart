@@ -20,7 +20,7 @@ class CalculatorBrain {
 
   num tipTotal = 0;
   num calculateTip() {
-    tipTotal = sub * tipPercent;
+    tipTotal = (sub * tipPercent) / 100;
     return tipTotal;
   }
 
