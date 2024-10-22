@@ -56,8 +56,8 @@ class _PhotoPageState extends State<PhotoPage> {
     // result = '';
     lineList = [];
 
-    final textDetector = GoogleMlKit.vision.textDetector();
-    final RecognisedText recognisedText =
+    final textDetector = GoogleMlKit.vision.textRecognizer();
+    final RecognizedText recognisedText =
         await textDetector.processImage(inputImage);
 
     setState(() {
@@ -90,7 +90,7 @@ class _PhotoPageState extends State<PhotoPage> {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Container(
-              height: 550,
+              // height: 550,
               child: Center(
                 child: SingleChildScrollView(
                   child: _image == null

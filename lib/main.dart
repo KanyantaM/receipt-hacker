@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.blueGrey[800],
-        accentColor: Colors.lightGreenAccent,
+        hintColor: Colors.lightGreenAccent,
         scaffoldBackgroundColor: Colors.white70,
       ),
       title: 'Receipt Hacker',
